@@ -36,15 +36,19 @@ steps:
 
 - task: NuGetCommand@2
   name: 'restoreDotNetCoreProject'
-  displayName: 'NuGet restore packages'
   inputs:
     command: 'restore'
     restoreSolution: '$(solutionCore)'
     feedsToUse: 'select'  
 
 - task: DotNetCoreCLI@2
-  name: 'Publish'
-  displayName: 'Publish'
+  name: 'BuildDotNetCoreProject'
+  inputs:
+    command: 'build'
+    projects: '$(projectCore)'
+
+- task: DotNetCoreCLI@2
+  name: 'PublishCoreProject'
   inputs:
     command: 'publish'
     publishWebProjects: false
